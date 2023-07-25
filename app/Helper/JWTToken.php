@@ -16,6 +16,16 @@ class JWTToken {
         ];
         return JWT::encode($payload, $key, 'HS256');
     }
+    public static function CreateTokenForSetPassword($userEmail): string{
+        $key = env('JWT_KEY');
+        $payload = [
+            'iss'       => 'laravel-token',
+            'iat'       => time(),
+            'exp'       => time() + 60 * 20,
+            'userEmail' => $userEmail,
+        ];
+        return JWT::encode($payload, $key, 'HS256');
+    }
 
     public static function VerifyToken($token): string {
         try {
